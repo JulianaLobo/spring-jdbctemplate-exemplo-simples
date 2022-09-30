@@ -35,6 +35,13 @@ public class JdbctemplateApplication implements CommandLineRunner {
 		for (Contato contato : contatos) {
 			System.out.println(contato.getNome() + " - " + contato.getTelefone());
 		}
+
+		int rowCount = this.jdbcTemplate.queryForObject("select count(*) from contatos", Integer.class);
+		System.out.println("Número de registros da tabela 'contatos': " + rowCount);
+
+		String telContato = this.jdbcTemplate.queryForObject(
+        "select telefone from contatos where nome = ?", String.class, "Edson Angoti Júnior");
+		System.out.println("Telefone do contato 'Edson Angoti Júnior': " + telContato);
 	}
 
 }
